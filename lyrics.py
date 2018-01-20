@@ -11,7 +11,7 @@ except ImportError:
 
 
 def get_lyrics(song_name):
-    search_name = song_name + ' genius'
+    search_name = song_name + ' genius lyrics'
     name = quote_plus(search_name)
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11'
            '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -43,7 +43,7 @@ def get_lyrics(song_name):
     return lyrics[2:len(lyrics)]
 
 def get_lyrics_musixmatch(song_name):
-    search_name += song_name + ' musixmatch'
+    search_name = song_name + ' musixmatch'
     name = quote_plus(search_name)
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11'
            '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
