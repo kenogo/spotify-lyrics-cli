@@ -14,4 +14,4 @@ Credits for the bash script go to [this thread](https://gist.github.com/febuiles
 
 ## Dependencies
 
-Needs the python libraries `bs4` and `request`. And, obviously, Spotify :)
+Needs the python libraries `bs4`, `lxml` and `request`. And, obviously, Spotify :)
