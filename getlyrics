@@ -1,6 +1,13 @@
 #!/bin/bash
 
-SP_DEST="org.mpris.MediaPlayer2.spotify"
+if [ "$#" -ne 1 ]; then
+    echo "Usage: ./getlyrics [vlc|spotify|...]"
+    exit 1
+fi
+
+player=$1
+
+SP_DEST="org.mpris.MediaPlayer2.$player"
 SP_PATH="/org/mpris/MediaPlayer2"
 SP_MEMB="org.mpris.MediaPlayer2.Player"
 
