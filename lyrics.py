@@ -29,6 +29,18 @@ def get_lyrics(song_name):
     link_end = result.find('"', link_start + 1)
     link = result[link_start:link_end]
 
+    check_link = link.lower()
+    song_name_arr = song_name.split()
+    song_name_arr = [s.lower() for s in song_name_arr]
+    # Replace special characters:
+    song_name_arr = [re.sub("[^a-z^A-Z^0-9]", ".*", s) +
+            ".*" for s in song_name_arr]
+    link_check = "https://genius.com/"
+    for s in song_name_arr:
+        link_check += s
+    if re.match(link_check, check_link) is None:
+        return get_lyrics_musixmatch(song_name)
+
     lyrics_html = requests.get(link, headers={
                                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel'
                                'Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, '
