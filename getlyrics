@@ -29,8 +29,6 @@ SPOTIFY_METADATA="$(dbus-send                                                   
     | sed -E 's/"$//'                               `# ...and trailing quotes.`   \
     | sed -E 's/\"+/|/'                             `# Regard "" as seperator.`   \
     | sed -E 's/ +/ /g'                             `# Merge consecutive spaces.` \
-    | sed -e 's/\[[^][]*\]//g'                      `# Remove brackets.`          \
-    | sed -e 's/([^()]*)//g'                        `# Remove parentesis.`        \
     )"
 
 TrackArtist=$(echo "$SPOTIFY_METADATA" | sed -n 's/artist|//p')
