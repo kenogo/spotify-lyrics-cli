@@ -9,7 +9,6 @@ try:
 except ImportError:
     from urllib import quote_plus
 
-
 def get_lyrics_genius(artist, title):
     # Google for Lyrics
     search_name = "%s %s genius lyrics" % (artist, title)
@@ -46,22 +45,30 @@ def check_link_genius(artist, title, link):
     return True
 
 def get_song_info(player):
-    bus = dbus.SessionBus()
-    try:
-        proxy = bus.get_object("org.mpris.MediaPlayer2.%s" % player,
-                               "/org/mpris/MediaPlayer2")
-    except dbus.exceptions.DBusException:
-        print("[ERROR] Player \"%s\" doesn't exist or isn't playing" % player)
-        return
+    if player == "mpd":
+        from mpd import MPDClient
+        client = MPDClient()
+        client.connect("localhost", 6600)
+        song_info = client.currentsong()
+        return song_info["artist"], song_info["title"]
+    else:
+        bus = dbus.SessionBus()
+        try:
+            proxy = bus.get_object("org.mpris.MediaPlayer2.%s" % player,
+                                   "/org/mpris/MediaPlayer2")
+        except dbus.exceptions.DBusException:
+            print("[ERROR] Player \"%s\" doesn't exist or isn't playing" \
+                  % player)
+            return
 
-    interface = dbus.Interface(
-        proxy, dbus_interface="org.freedesktop.DBus.Properties"
-    )
-    properties = interface.GetAll("org.mpris.MediaPlayer2.Player")
-    metadata = properties["Metadata"]
-    artist = str(metadata["xesam:artist"][0])
-    title = str(metadata["xesam:title"])
-    return artist, title
+        interface = dbus.Interface(
+            proxy, dbus_interface="org.freedesktop.DBus.Properties"
+        )
+        properties = interface.GetAll("org.mpris.MediaPlayer2.Player")
+        metadata = properties["Metadata"]
+        artist = str(metadata["xesam:artist"][0])
+        title = str(metadata["xesam:title"])
+        return artist, title
 
 def main():
     parser = argparse.ArgumentParser(description="Display lyrics automatically")
