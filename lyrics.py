@@ -10,6 +10,7 @@ except ImportError:
     from urllib import quote_plus
 
 def get_lyrics_genius(artist, title):
+    title = re.sub(r"\(.*\)|\[.*\]", '', title) # (feat.) [extended cut]
     # Google for Lyrics
     search_name = "%s %s genius lyrics" % (artist, title)
     name = quote_plus(search_name)
