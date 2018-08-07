@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import dbus
 import re
 import requests
+import sys
 
 try:
     from urllib.parse import quote_plus
@@ -32,6 +33,8 @@ def get_lyrics_genius(artist, title):
     raw_lyrics = str(soup.findAll('div', attrs={'class': 'lyrics'}))
     lyrics = raw_lyrics[1:len(raw_lyrics)-1]
     lyrics = re.sub(r"<[^<>]*>", '', lyrics) # Remove HTML tags
+    if sys.version_info < (3, 0):
+        lyrics = re.sub(r"\\n", '\n', lyrics)
     lyrics = lyrics[2:] # Remove two newlines
     return lyrics
 
