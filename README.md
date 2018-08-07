@@ -5,7 +5,7 @@ This is a simple python script to automatically scrape www.genius.com lyrics bas
 The program can be used by downloading and extracting the zip and simply running.
 
 ```
-python lyrics.py [spotify|vlc|...] | less
+python lyrics.py [spotify|vlc|...]
 ```
 
 ## Dependencies
