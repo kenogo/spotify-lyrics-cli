@@ -1,6 +1,7 @@
 import argparse
 from bs4 import BeautifulSoup
 import dbus
+import display
 import re
 import requests
 import sys
@@ -12,6 +13,7 @@ except ImportError:
 
 def get_lyrics_genius(artist, title):
     title = re.sub(r"\(.*\)|\[.*\]", '', title) # (feat.) [extended cut]
+    title = re.sub(r"-.*", '', title) # - Remastered ...
     # Google for Lyrics
     search_name = "%s %s genius lyrics" % (artist, title)
     name = quote_plus(search_name)
