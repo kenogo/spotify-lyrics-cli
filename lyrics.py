@@ -1,7 +1,6 @@
 import argparse
 from bs4 import BeautifulSoup
 import dbus
-import display
 import re
 import requests
 import sys
