@@ -42,6 +42,9 @@ def get_lyrics_genius(artist, title):
 def check_link_genius(artist, title, link):
     songinfo = "%s %s" % (artist, title)
     songinfo = songinfo.lower()
+    songinfo = re.sub(r"ö", "o", songinfo)
+    songinfo = re.sub(r"ä", "a", songinfo)
+    songinfo = re.sub(r"ü", "u", songinfo)
     songinfo = re.sub(r"[^a-zA-Z0-9 ]", '', songinfo) # Remove special chars
     songinfo_array = songinfo.split()
     for item in songinfo_array:
