@@ -10,7 +10,7 @@ try:
 except ImportError:
     from urllib import quote_plus
 
-def get_lyrics_genius(artist, title):
+def get_lyrics_genius(artist, title, nocheck=False):
     title = re.sub(r"\(.*\)|\[.*\]", '', title) # (feat.) [extended cut]
     title = re.sub(r"-.*", '', title) # - Remastered ...
     # Google for Lyrics
@@ -25,8 +25,8 @@ def get_lyrics_genius(artist, title):
     link = result[link_start:link_end].lower()
     link = re.sub(r"&.*", '', link) # Remove PHP nonesense
     link_correct = check_link_genius(artist, title, link)
-    if not link_correct:
-        return "Lyrics could not be found..."
+    if not link_correct and not nocheck:
+        return "Lyrics could not be found... You can try running with --nocheck"
 
     # Get the lyrics from genius
     lyrics_html = requests.get(link).text
@@ -81,10 +81,12 @@ def get_song_info(player):
 def main():
     parser = argparse.ArgumentParser(description="Display lyrics automatically")
     parser.add_argument("player", type=str, help="e.g. spotify,vlc,...")
+    parser.add_argument("--nocheck", action="store_true", help="Don't check "
+                        "if the first google link actually is the desired song")
     args = parser.parse_args()
     artist, title = get_song_info(args.player)
     print("%s - %s\n" % (artist.upper(), title.upper()))
-    print(get_lyrics_genius(artist, title))
+    print(get_lyrics_genius(artist, title, nocheck=args.nocheck))
 
 if __name__ == "__main__":
     main()
