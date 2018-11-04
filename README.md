@@ -8,6 +8,12 @@ The program can be installed by downloading and extracting the zip and simply ru
 python3 setup.py install
 ```
 
+You can also install it from pypi:
+
+```
+pip3 install spotify-lyrics-cli
+```
+
 It can then be run with
 
 ```
@@ -16,6 +22,5 @@ lyrics-cli [spotify|vlc|...]
 
 ## Dependencies
 
-Needs the python libraries `bs4`, `lxml` and `requests`. And, obviously, Spotify :)
 
-If you want to fetch lyrics for mpd, you'll also need the python library `mpd`.
+If you want to fetch lyrics for mpd, you'll need to install the python library `mpd`.
